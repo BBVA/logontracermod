@@ -53,10 +53,11 @@ The streaming in Neo4j is done with the code of load_neo4j.py *. In order not to
 The time series that the original Logon Tracer loads are concatenations of Strings in attributes of the Neo4j nodes, as shown below.
 
 <div align = "center">
-     <img width = "80%" src = "images / time_series_neo4j.PNG" />
+     <img width = "80%" src = "images/time_series_neo4j.PNG" />
 </ div>
 
 To be able to explore, filter and group efficiently, the data has been loaded into InfluxDB instead of Neo4j. The code that performs the load to InfluxDB is *load_influxdb.py*. Said load is also done in real time.
+
 
 ### PageRank
 
