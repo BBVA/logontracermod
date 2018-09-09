@@ -54,7 +54,9 @@ The time series that the original Logon Tracer loads are concatenations of Strin
 
 <div align = "center">
      <img width = "80%" src = "images/time_series_neo4j.PNG" />
-</ div>
+</div>
+
+
 
 To be able to explore, filter and group efficiently, the data has been loaded into InfluxDB instead of Neo4j. The code that performs the load to InfluxDB is *load_influxdb.py*. Said load is also done in real time.
 
