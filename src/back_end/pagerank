@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from py2neo import authenticate, Graph
+import networkx as nx
+
+G = nx.DiGraph()
+authenticate("", "", "")
+
+graph = Graph("http://localhost:7475/db/data/")
+i = 0
+
+import networkx as nx
+
+host_rel = graph.run("MATCH  d = (ip:IPAddress)-[c]->(user:Username) RETURN ip.IP as i, user.user as u , c.count as c ").data()
+for i in host_rel:
+	G.add_node(i["i"])
+	G.add_node(i["u"]) 
+	G.add_edge(i["i"], i["u"], weight=int(i["c"]))
+
+
+dc_rel = graph.run("MATCH  d = (ip:DC)-[c]-(user:Username) RETURN ip.IP as i, user.user as u , c.count as c").data()
+for i in dc_rel:
+	G.add_node(i["i"])
+	G.add_node(i["u"]) 
+	G.add_edge(i["i"], i["u"], weight=int(i["c"]))
+
+print("nodes")
+print(G.nodes())
+print("edges")
+print(G.edges())
+
+pr = nx.pagerank(G, alpha=0.9)
+
+
+print(pr)
+for p,q in pr.items():
+	graph.run("MATCH (node) where node.user = '"+ p+"' set node.rank = "+str(pr[p]))
+	graph.run("MATCH (node) where node.IP = '"+ p+"' set node.rank = "+str(pr[p]))
+
