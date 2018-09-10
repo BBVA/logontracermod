@@ -64,3 +64,28 @@ To be able to explore, filter and group efficiently, the data has been loaded in
 ### PageRank
 
 The PageRank algorithm is calculated in Batch using NetworkX, updated every 5 minutes, with the code *pagerank.py*.
+
+
+## Front-end
+
+To adapt this tool to our purpose, we need to do some minimal changes in the front side:
+
+- Flask server:
+	- It has added a new path (/getTimeline). In this, we connect to the influxdb and run a query sended via post. As a result, this path return a JSON object, which is processed and displayed on the website.
+
+- Main view:
+	- The function 'BuildGraph' has been updated. Now, this function can run a query against Neo4j asking for the Domain Controllers (DC)
+    - The function has been updated to show the graph using cytoscape.
+    - The graph has been adapted to show the Domain Controllers returned by Neo4j.
+    
+
+<div align = "center">
+     <img width = "80%" src = "/images/logon_tracer_bbva.PNG" />
+</div>
+
+- TimeLine View:
+	- New function 'runInfluxDBQuery' has been added in JS. When its access to the URI '/getTimeLine' it's invoked. And it's can be run manually. For default its runned with 1 hour.
+
+<div align = "center">
+     <img width = "80%" src = "/images/logon_tracer_ts.PNG" />
+</div>
