@@ -9,7 +9,7 @@ The Logon Tracer tool is really interesting, as it allows to query if some impor
 Another magnificent features that the Logon Tracer, developed by JPCERTCC, provides is the idea of applying the PageRank algorithm in the graph database that stores the A.D. logons.
 
 
-To fulfill the Logon Tracer's purpose, an EVTX file is loaded into Neo4j, so that the data is modeled as a graph database, connecting users and machines through logon events.
+To fulfill the Logon Tracer's purpose, an EVTX file has to be loaded into Neo4j, so that the data is modeled as a graph database, connecting users and machines through logon events.
 
 Changes have been made to this project both in the Back-end and in the Front-end. The changes made in the first one will be explained first, since they were the ones that motivated the changes of the second one.
 
