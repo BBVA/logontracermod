@@ -1,7 +1,15 @@
 # Logon Tracer
+## Introduction
+Logon Tracer is a <a href="https://github.com/JPCERTCC/LogonTracer/"> project published on GitHub by the JPCERTCC </a> which aims to analyze and detect malicious *logon by visualizing and analyzing Windows active directory event logs*. 
 
-It is a <a href="https://github.com/JPCERTCC/LogonTracer/"> project published on GitHub by the Japan CERT </a> which aims to analyze and detect malicious logins.
-To fulfill this purpose, an EVTX file is loaded into Neo4j, so that the data is modeled as a graph database, connecting users and machines through events.
+In a big company, where most of the computers that have access to the core servers thanks to the Active Directory policies, it is highly important to detect if any malicious activity is happening. 
+
+The Logon Tracer tool is really interesting, as it allows to query if some important alerts have happened in an A.D. server. It also allows the user to visualize how the A.D. server behaves, showing its incomming logons through Windows Event Log. 
+
+Another magnificent features that the Logon Tracer, developed by JPCERTCC, provides is the idea of applying the PageRank algorithm in the graph database that stores the A.D. logons.
+
+
+To fulfill the Logon Tracer's purpose, an EVTX file is loaded into Neo4j, so that the data is modeled as a graph database, connecting users and machines through logon events.
 
 Changes have been made to this project both in the Back-end and in the Front-end. The changes made in the first one will be explained first, since they were the ones that motivated the changes of the second one.
 
@@ -45,7 +53,7 @@ The node types become the following:
 
 Another requirement was to be able to load the Logon Tracer dynamically, since these events are received in real time in the form of a JSON that arrives through Kafka. This supposes a radical change of the back-end, since the input goes from being an EVTX in batch to being a JSON in streaming.
 
-The streaming in Neo4j is done with the code of load_neo4j.py *. In order not to saturate this load, we only load the data, without applying the PageRank or ChangeFinder algorithms.
+The streaming in Neo4j is done with the code of load_neo4j.py*. In order not to saturate this load, we only load the data, without applying the PageRank or ChangeFinder algorithms.
 
 
 
