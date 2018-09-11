@@ -16,18 +16,6 @@ from influxdb import InfluxDBClient
 from flask import jsonify
 
 
-try:
-    from lxml import etree
-    has_lxml = True
-except ImportError:
-    has_lxml = False
-
-try:
-    from Evtx.Evtx import Evtx
-    from Evtx.Views import evtx_file_xml_view
-    has_evtx = True
-except ImportError:
-    has_evtx = False
 
 try:
     from py2neo import Graph
@@ -40,12 +28,6 @@ try:
     has_numpy = True
 except ImportError:
     has_numpy = False
-
-try:
-    import changefinder
-    has_changefinder = True
-except ImportError:
-    has_changefinder = False
 
 try:
     from flask import Flask, render_template, request
@@ -89,8 +71,6 @@ parser.add_argument("-u", "--user", dest="user", action="store", type=str, metav
                     help="Neo4j account name. (default: neo4j)")
 parser.add_argument("-p", "--password", dest="password", action="store", type=str, metavar="PASSWORD",
                     help="Neo4j password. (default: password).")
-parser.add_argument("-e", "--evtx", dest="evtx", nargs="*", action="store", type=str, metavar="EVTX",
-                    help="Import to the AD EVTX file. (multiple files OK)")
 parser.add_argument("-z", "--timezone", dest="timezone", action="store", type=int, metavar="UTC",
                     help="Event log time zone. (for example: +9) (default: GMT)")
 parser.add_argument("-f", "--from", dest="fromdate", action="store", type=str, metavar="DATE",
@@ -178,17 +158,6 @@ def main():
     if not has_py2neo:
         sys.exit("[!] py2neo must be installed for this script.")
 
-    if not has_evtx:
-        sys.exit("[!] python-evtx must be installed for this script.")
-
-    if not has_lxml:
-        sys.exit("[!] lxml must be installed for this script.")
-
-    if not has_lxml:
-        sys.exit("[!] numpy must be installed for this script.")
-
-    if not has_changefinder:
-        sys.exit("[!] changefinder must be installed for this script.")
 
     try:
         graph_http = "http://" + NEO4J_USER + ":" + NEO4J_PASSWORD +"@" + NEO4J_SERVER + ":" + NEO4J_PORT + "/db/data/"
@@ -209,11 +178,6 @@ def main():
         GRAPH.delete_all()
         print("[*] Delete all nodes and relationships from this Neo4j database.")
 
-    # if args.evtx:
-    #     for evtx_file in args.evtx:
-    #         if not os.path.isfile(evtx_file):
-    #             sys.exit("[!] Can't open file {0}.".format(evtx_file))
-    #     parse_evtx(args.evtx, GRAPH)
 
     print("[*] Script end. %s" % datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
